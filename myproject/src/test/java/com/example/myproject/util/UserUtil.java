@@ -1,12 +1,12 @@
 package com.example.myproject.util;
 
-import com.example.myproject.domain.User;
+//import com.example.myproject.domain.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserUtil {
-
+/*
     private static final String ID = "id";
     private static final String PASSWORD = "password";
 
@@ -24,5 +24,5 @@ public class UserUtil {
         }
         return userList;
     }
-
+*/
 }
