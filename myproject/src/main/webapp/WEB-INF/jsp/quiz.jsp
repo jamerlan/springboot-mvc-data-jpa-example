@@ -21,7 +21,7 @@
     };
 </script>
 
-<script src="/js/scripts.js"></script>
+<script src="${pageContext.request.contextPath}/js/scripts.js"></script>
 
 <br/>
 <div id="questions">
