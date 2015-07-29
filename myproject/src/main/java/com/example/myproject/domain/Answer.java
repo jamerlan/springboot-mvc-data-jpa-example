@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "answers", indexes = {@Index(columnList = "answer_text", name = "answer_text_index", unique = true)})
@@ -42,5 +43,19 @@ public class Answer implements Serializable {
                 "id='" + id + '\'' +
                 ", answerText='" + answerText + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Answer answer = (Answer) o;
+        return id == answer.id &&
+                Objects.equals(answerText, answer.answerText);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, answerText);
     }
 }

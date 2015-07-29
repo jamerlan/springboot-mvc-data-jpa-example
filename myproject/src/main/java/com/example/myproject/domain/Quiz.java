@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -60,5 +61,20 @@ public class Quiz implements Serializable {
                 ", questionsToAnswer=" + questionsToAnswer +
                 ", score=" + score +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quiz quiz = (Quiz) o;
+        return id == quiz.id &&
+                score == quiz.score &&
+                Objects.equals(questionsToAnswer, quiz.questionsToAnswer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, questionsToAnswer, score);
     }
 }

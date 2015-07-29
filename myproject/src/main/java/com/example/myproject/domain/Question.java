@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "questions")
@@ -55,5 +56,20 @@ public class Question implements Serializable {
                 ", questionText='" + questionText + '\'' +
                 ", correctAnswer=" + correctAnswer +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return id == question.id &&
+                Objects.equals(questionText, question.questionText) &&
+                Objects.equals(correctAnswer, question.correctAnswer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, questionText, correctAnswer);
     }
 }
