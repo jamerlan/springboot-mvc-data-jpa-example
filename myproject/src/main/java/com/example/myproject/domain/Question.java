@@ -28,6 +28,14 @@ public class Question implements Serializable {
     @JsonIgnore
     private Answer correctAnswer;
 
+    public Question() {
+    }
+
+    public Question(String questionText, Answer correctAnswer) {
+        this.questionText = questionText;
+        this.correctAnswer = correctAnswer;
+    }
+
     public long getId() {
         return id;
     }

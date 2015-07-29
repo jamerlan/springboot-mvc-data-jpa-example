@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class QuizServiceImpl implements QuizService {
@@ -24,6 +23,9 @@ public class QuizServiceImpl implements QuizService {
     @Inject
     private AnswerRepository answerRepository;
 
+    @Inject
+    private RandomNumberService randomNumberService;
+
     @Override
     @Transactional
     public Quiz generateQuiz() {
@@ -33,10 +35,8 @@ public class QuizServiceImpl implements QuizService {
 
         long max = questionRepository.count() - 1;
 
-        ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
-
         while(questionsToAnswer.size() < Constants.QUIZ_QUESTIONS_COUNT) {
-            long nextQuestionId = threadLocalRandom.nextLong(max) + 1;// exclude 0
+            long nextQuestionId = randomNumberService.getNextLong(max) + 1;// exclude 0
             Question question = questionRepository.findOne(nextQuestionId);
             questionsToAnswer.add(question);
         }
@@ -68,13 +68,12 @@ public class QuizServiceImpl implements QuizService {
     @Transactional
     public Set<Answer> getRandomAnswers() {
         long max = answerRepository.count() - 1;
-        ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
-        long answersSize = threadLocalRandom.nextLong(max) + 1;// exclude 0
+        long answersSize = randomNumberService.getNextLong(max) + 1;// exclude 0
 
         Set<Answer> answers = new HashSet<>();
 
         while(answers.size() < answersSize) {
-            long nextAnswerId = threadLocalRandom.nextLong(max) + 1;// exclude 0
+            long nextAnswerId = randomNumberService.getNextLong(max) + 1;// exclude 0
             Answer answer = answerRepository.findOne(nextAnswerId);
             answers.add(answer);
         }
@@ -91,5 +90,21 @@ public class QuizServiceImpl implements QuizService {
             quiz.increaseScore();
             quizRepository.save(quiz);
         }
+    }
+
+    public void setQuizRepository(QuizRepository quizRepository) {
+        this.quizRepository = quizRepository;
+    }
+
+    public void setQuestionRepository(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
+
+    public void setAnswerRepository(AnswerRepository answerRepository) {
+        this.answerRepository = answerRepository;
+    }
+
+    public void setRandomNumberService(RandomNumberService randomNumberService) {
+        this.randomNumberService = randomNumberService;
     }
 }
