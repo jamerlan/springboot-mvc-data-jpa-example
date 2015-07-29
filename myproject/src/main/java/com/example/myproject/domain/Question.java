@@ -1,5 +1,7 @@
 package com.example.myproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -23,6 +25,7 @@ public class Question implements Serializable {
 
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Answer correctAnswer;
 
     public long getId() {
