@@ -11,3 +11,7 @@
 4) mvn spring-boot:run
 
 5) Открыть в браузере http://localhost:8080/
+
+
+Чтобы заполнить таблицы answers и questions по 300 000 записей, нужно выполнить скрипт
+mysql -u root quiz < src/db/fill_tablas.sql
