@@ -5,6 +5,8 @@ import com.example.myproject.domain.Question;
 import com.example.myproject.domain.Quiz;
 import com.example.myproject.service.QuizService;
 import com.example.myproject.utils.Constants;
+import com.example.myproject.web.dto.AnswerDTO;
+import com.example.myproject.web.dto.QuestionDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -52,9 +54,14 @@ public class QuizController {
         answers.add(question.getCorrectAnswer());
         answers.addAll(quizService.getRandomAnswers());
 
+        Set<AnswerDTO> answerDTOs = new HashSet<>();
+        for (Answer answer : answers) {
+            answerDTOs.add(AnswerDTO.fromAnswer(answer));
+        }
+
         QuizForm quizForm = getQuizForm(quiz);
         logger.debug("Result -> quizForm: " + quizForm);
-        return new QuestionForm(quizForm, question, answers);
+        return new QuestionForm(quizForm, QuestionDTO.fromQuestion(question), answerDTOs);
     }
 
     @RequestMapping(value = "/saveAnswer")

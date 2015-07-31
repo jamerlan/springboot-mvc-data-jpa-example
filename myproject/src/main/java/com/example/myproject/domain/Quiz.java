@@ -16,7 +16,7 @@ public class Quiz implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name="quiz_questions",
             joinColumns=@JoinColumn(name="quiz_id"),
             inverseJoinColumns=@JoinColumn(name="question_id"))

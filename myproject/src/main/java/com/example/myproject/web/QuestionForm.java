@@ -1,13 +1,13 @@
 package com.example.myproject.web;
 
-import com.example.myproject.domain.Answer;
-import com.example.myproject.domain.Question;
+import com.example.myproject.web.dto.AnswerDTO;
+import com.example.myproject.web.dto.QuestionDTO;
 
 import java.io.Serializable;
 import java.util.Set;
 
 public class QuestionForm implements Serializable {
-    public QuestionForm(QuizForm quizForm, Question question, Set<Answer> answers) {
+    public QuestionForm(QuizForm quizForm, QuestionDTO question, Set<AnswerDTO> answers) {
         this.quizForm = quizForm;
         this.question = question;
         this.answers = answers;
@@ -15,9 +15,9 @@ public class QuestionForm implements Serializable {
 
     private QuizForm quizForm;
 
-    private Question question;
+    private QuestionDTO question;
 
-    private Set<Answer> answers;
+    private Set<AnswerDTO> answers;
 
     public QuizForm getQuizForm() {
         return quizForm;
@@ -27,19 +27,19 @@ public class QuestionForm implements Serializable {
         this.quizForm = quizForm;
     }
 
-    public Question getQuestion() {
+    public QuestionDTO getQuestion() {
         return question;
     }
 
-    public void setQuestion(Question question) {
+    public void setQuestion(QuestionDTO question) {
         this.question = question;
     }
 
-    public Set<Answer> getAnswers() {
+    public Set<AnswerDTO> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<Answer> answers) {
+    public void setAnswers(Set<AnswerDTO> answers) {
         this.answers = answers;
     }
 
